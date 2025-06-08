@@ -1,0 +1,112 @@
+.cat-stack {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  height: 500px;
+  margin: 0 auto;
+  perspective: 1000px;
+}
+
+.cat-card {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.cat-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cat-card.active {
+  z-index: 10;
+}
+
+.results {
+  padding: 20px;
+}
+
+.liked-cats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.liked-cat {
+  width: 100%;
+  height: 150px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.liked-cat img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Add to SwipeContainer.css */
+.swipe-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  height: 500px;
+  margin: 0 auto;
+}
+
+.card-wrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  touch-action: none; /* Important for touch devices */
+  user-select: none; /* Prevent text selection during drag */
+}
+
+.pc-controls {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.like-btn, .dislike-btn {
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.like-btn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.dislike-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.like-btn:hover, .dislike-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Add cursor pointer for PC drag */
+.card-wrapper {
+  cursor: grab;
+}
+
+.card-wrapper:active {
+  cursor: grabbing;
+}

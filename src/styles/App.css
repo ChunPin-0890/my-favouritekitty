@@ -1,0 +1,294 @@
+.app {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f8f9fa; /* Fallback color */
+}
+
+/* Background image with overlay */
+.app::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('./assets/cat-background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  opacity: 0.15; /* Adjust opacity as needed */
+  z-index: -1;
+}
+
+/* Ensure content stays above background */
+.app-header,
+.app-main,
+.liked-count {
+  position: relative;
+  z-index: 1;
+}
+
+/* Adjust other elements for better visibility */
+.app-header h1 {
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.card-wrapper {
+  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+  backdrop-filter: blur(2px); /* Slight blur effect */
+}
+.loading, .error {
+  font-size: 1.5rem;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.results {
+  text-align: center;
+}
+
+.liked-cats {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.liked-cat img {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Add to App.css */
+.loading-more {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  z-index: 100;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+/* Add to App.css */
+.queue-count {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+/* Container for swipe instructions */
+.swipe-instructions {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1rem;
+  margin: 1rem 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+/* Left-aligned like instruction */
+.swipe-like {
+  color: #4CAF50;
+  display: flex;
+  align-items: center;
+  margin-right: auto; /* Pushes to left */
+  padding: 0.5rem 1rem;
+  background: rgba(76, 175, 80, 0.1);
+  border-radius: 20px;
+}
+
+/* Right-aligned dislike instruction */
+.swipe-dislike {
+  color: #F44336;
+  display: flex;
+  align-items: center;
+  margin-left: auto; /* Pushes to right */
+  padding: 0.5rem 1rem;
+  background: rgba(244, 67, 54, 0.1);
+  border-radius: 20px;
+}
+
+/* Animation for visual cues */
+.swipe-like::before {
+  content: "←";
+  margin-right: 0.5rem;
+  animation: bounce-right 1.5s infinite;
+}
+
+.swipe-dislike::after {
+  content: "→";
+  margin-left: 0.5rem;
+  animation: bounce-left 1.5s infinite;
+}
+
+@keyframes bounce-right {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(5px); }
+}
+
+@keyframes bounce-left {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(-5px); }
+}
+
+/* Tablet adjustments */
+@media (min-width: 768px) {
+  .swipe-instructions {
+    max-width: 80%;
+    margin: 1rem auto;
+  }
+}
+
+/* Desktop - hide on large screens */
+@media (min-width: 1350px) {
+  .swipe-instructions {
+    display: none;
+  }
+}
+
+/* App.css - Mobile-first */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f8f8f8;
+  padding-bottom: env(safe-area-inset-bottom); /* Safe area for notches */
+}
+
+.app-header {
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.liked-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 50px;
+  background-color: #f5f5f5;
+  color: #666;
+  font-weight: 500;
+  cursor: default;
+  transition: all 0.3s ease;
+  user-select: none;
+  border: 1px solid transparent;
+}
+
+.liked-count.has-likes {
+  background-color: #fff0f0;
+  color: #d23a3a;
+  cursor: pointer;
+  border-color: #ffd6d6;
+}
+
+.liked-count.has-likes:hover {
+  background-color: #ffecec;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(210, 58, 58, 0.1);
+}
+
+.liked-count.has-likes:active {
+  transform: translateY(0);
+}
+
+.heart-icon {
+  font-size: 1.2em;
+}
+
+.count-text {
+  white-space: nowrap;
+}
+
+/* Accessibility focus styles */
+.liked-count.has-likes:focus-visible {
+  outline: 2px solid #d23a3a;
+  outline-offset: 2px;
+}
+
+.app-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.loading-spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top: 4px solid #4CAF50;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error-message {
+  color: #F44336;
+  text-align: center;
+  padding: 1rem;
+}
+
+/* Larger screens */
+@media (min-width: 768px) {
+  .app-header {
+    padding: 1rem 2rem;
+  }
+  
+  .app-header h1 {
+    font-size: 1.8rem;
+  }
+}
